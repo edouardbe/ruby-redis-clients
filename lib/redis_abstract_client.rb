@@ -28,7 +28,7 @@ class Redis
         def start(block_until_started = false)
             raise "#{self} already running" if @state == Redis::ThreadClientState::RUNNING
             @state = Redis::ThreadClientState::STARTING
-            @thread = Thread.new do
+            @abstract_client_thread = Thread.new do
                 pre_start
                 @state = Redis::ThreadClientState::RUNNING
                 if @on_started_callback
@@ -56,7 +56,7 @@ class Redis
 
         def stop(join = true)
             @state = Redis::ThreadClientState::STOPPING
-            @thread.join if join
+            @abstract_client_thread.join if join
         end
 
         protected

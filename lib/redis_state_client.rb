@@ -28,7 +28,7 @@ class Redis
 
         private
         def pre_start
-            #none
+            # delegate initial call to run
         end
         def post_start
             #none
